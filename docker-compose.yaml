@@ -5,24 +5,22 @@ services:
   trinitycore-db:
     image: mysql:8-oracle
     restart: always
+    network_mode: "host"
     volumes:
       # store database outside the container
       - ./containerfs/tc-db/mysql:/var/lib/mysql:delegated
       # mariadb image will load all *.sql files on first boot
       - ./containerfs/tc-server/source/sql/create/create_mysql.sql:/docker-entrypoint-initdb.d/000_create_mysql.sql
       - ./containerfs/tc-db/grants.sql:/docker-entrypoint-initdb.d/001_grants.sql
-    ports:
-      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: security-through-subnets
       TZ: Europe/Berlin
 
   trinitycore-worldserver:
     image: tc-builder
-    extra_hosts:
-      raspberrypi.lan: 172.18.0.1
+    network_mode: "host"
     command: >
-      /bin/sh -c 'wait-port trinitycore-db:3306 &&
+      /bin/sh -c 'wait-port localhost:3306 &&
         /hostfs/tc-server/dist/bin/worldserver'
     working_dir: /hostfs/tc-wd
     tty: true # Prevent prompt from spamming stdout
@@ -33,17 +31,14 @@ services:
       - ./containerfs:/hostfs:delegated
       # pass custom config into expected location for trinitycore
       - ./containerfs/tc-conf:/hostfs/tc-server/dist/etc
-    ports:
-      - 8085:8085
     environment:
       TZ: Europe/Berlin
 
   trinitycore-authserver:
     image: tc-builder
-    extra_hosts:
-      raspberrypi.lan: 172.18.0.1
+    network_mode: "host"
     command: >
-      /bin/sh -c 'wait-port trinitycore-db:3306 &&
+      /bin/sh -c 'wait-port localhost:3306 &&
         wait-port trinitycore-worldserver:8085 &&
         /hostfs/tc-server/dist/bin/authserver'
     working_dir: /hostfs/tc-wd
@@ -54,7 +49,5 @@ services:
       - ./containerfs:/hostfs:delegated
       # pass custom config into expected location for trinitycore
       - ./containerfs/tc-conf:/hostfs/tc-server/dist/etc
-    ports:
-      - 3724:3724
     environment:
       TZ: Europe/Berlin
