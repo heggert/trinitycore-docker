@@ -12,7 +12,7 @@ RUN apt-get update \
   make \
   gcc \
   g++ \
-  libmariadbclient-dev \
+  default-libmysqlclient-dev \
   libssl-dev \
   libbz2-dev \
   libreadline-dev \
