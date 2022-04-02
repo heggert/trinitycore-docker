@@ -39,7 +39,7 @@ services:
     network_mode: "host"
     command: >
       /bin/sh -c 'wait-port localhost:3306 &&
-        wait-port trinitycore-worldserver:8085 &&
+        wait-port localhost:8085 &&
         /hostfs/tc-server/dist/bin/authserver'
     working_dir: /hostfs/tc-wd
     tty: true # Prevent prompt from spamming stdout
