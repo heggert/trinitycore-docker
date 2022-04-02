@@ -29,7 +29,7 @@ LATEST_RELEASE_TAG=$( \
   git clone \
     --filter=tree:0 \
     -b $LATEST_RELEASE_TAG \
-    git://github.com/TrinityCore/TrinityCore.git \
+    https://github.com/TrinityCore/TrinityCore.git \
     /hostfs/tc-server/source
   exit 0
 }
