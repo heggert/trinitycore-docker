@@ -20,7 +20,7 @@ services:
   trinitycore-worldserver:
     image: tc-builder
     extra_hosts:
-      raspberrypi: 172.18.0.1
+      raspberrypi.lan: 172.18.0.1
     command: >
       /bin/sh -c 'wait-port trinitycore-db:3306 &&
         /hostfs/tc-server/dist/bin/worldserver'
@@ -41,7 +41,7 @@ services:
   trinitycore-authserver:
     image: tc-builder
     extra_hosts:
-      raspberrypi: 172.18.0.1
+      raspberrypi.lan: 172.18.0.1
     command: >
       /bin/sh -c 'wait-port trinitycore-db:3306 &&
         wait-port trinitycore-worldserver:8085 &&
