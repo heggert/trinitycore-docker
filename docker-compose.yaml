@@ -3,7 +3,7 @@ version: "3.7"
 services:
   # accessible at //trinitycore-db:3306 inside the swarm
   trinitycore-db:
-    image: mariadb:latest
+    image: mysql
     restart: always
     volumes:
       # store database outside the container
