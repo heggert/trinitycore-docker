@@ -18,7 +18,7 @@ services:
 
   phpmyadmin:
     depends_on:
-      - db
+      - trinitycore-db
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
