@@ -1,6 +1,12 @@
 #!/bin/bash
 
-docker build -f tc-builder/Dockerfile -t tc-builder:latest .
+# build if necessary
+{
+  docker image inspect tc-builder:latest &>/dev/null
+} || {
+  # Copy and paste this command to rebuild
+  docker build -f tc-builder/Dockerfile -t tc-builder:latest .
+}
 
 # Build up the arguments so we can conditionally link in the client directory
 # only if specified
