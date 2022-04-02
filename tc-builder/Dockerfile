@@ -1,5 +1,5 @@
 # Using nodejs since it's debian by default and we can script easily.
-FROM node:14-buster
+FROM node:16-bullseye
 
 # https://trinitycore.atlassian.net/wiki/spaces/tc/pages/10977309/Linux+Core+Installation
 # Plus jq for scripting
