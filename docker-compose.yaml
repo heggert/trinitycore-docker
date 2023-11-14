@@ -3,12 +3,14 @@ version: "3.7"
 services:
   # accessible at //trinitycore-db:3306 inside the swarm
   trinitycore-db:
-    image: mysql:8-oracle
+    image: mariadb:latest
+    #image: mysql:8-oracle
     restart: always
     network_mode: "host"
     volumes:
       # store database outside the container
-      - ./containerfs/tc-db/mysql:/var/lib/mysql:delegated
+      - ./containerfs/tc-db/mariadb:/var/lib/mysql:delegated
+      #- ./containerfs/tc-db/mysql:/var/lib/mysql:delegated
       # mariadb image will load all *.sql files on first boot
       - ./containerfs/tc-server/source/sql/create/create_mysql.sql:/docker-entrypoint-initdb.d/000_create_mysql.sql
       - ./containerfs/tc-db/grants.sql:/docker-entrypoint-initdb.d/001_grants.sql
@@ -31,6 +33,7 @@ services:
       - ./containerfs:/hostfs:delegated
       # pass custom config into expected location for trinitycore
       - ./containerfs/tc-conf:/hostfs/tc-server/dist/etc
+      - ./containerfs/tc-server/source:/tc-server-source
     environment:
       TZ: Europe/Berlin
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export DOCKER_BUILDKIT=1
+
 docker build -f tc-builder/Dockerfile -t tc-builder:latest .
 
 # Build up the arguments so we can conditionally link in the client directory

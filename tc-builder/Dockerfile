@@ -12,7 +12,6 @@ RUN apt-get update \
   make \
   gcc \
   g++ \
-  default-libmysqlclient-dev \
   libssl-dev \
   libbz2-dev \
   libreadline-dev \
@@ -21,7 +20,7 @@ RUN apt-get update \
   jq \
   mariadb-server \
   p7zip-full \
-  default-libmysqlclient-dev \
+  libmariadb-dev \
   && update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100 \
   && update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang 100 \
   && rm -rf /var/lib/apt/lists/*
